@@ -25,7 +25,6 @@ def test_was_published_recently_with_old_question():
     old_question = Question(pub_date=time)
     assert old_question.was_published_recently() == False
 
-
 def test_was_published_recently_with_recent_question():
     """
     was_published_recently() returns True for questions whose pub_date
@@ -56,18 +55,10 @@ def test_get_non_empty_questions_list(client,create_question_object):
 
 
 @patch('polls.synchronize.requests.get')
-def test_get_todos_response_ok(mock_get):
-    todos = [
-        {
-            'userId': 1,
-            'id': 1,
-            'title': 'Poll Test',
-            'completed': False 
-        }
-    ]
+def test_get_todos_response_ok(mock_get,create_todos_list):
     # Configure the mock to return a response with an OK status code.
     mock_get.return_value.ok = True
-    mock_get.return_value.json.return_value = todos
+    mock_get.return_value.json.return_value = create_todos_list
 
     # Call the service, which will send a request to the server.
     response = demo_synchronize_script()
@@ -87,3 +78,6 @@ def test_get_todos_response_ko(mock_get):
 
     # If the request is sent successfully, then I expect a response to be returned.
     assert response == None
+
+def test_additional():
+    pass
