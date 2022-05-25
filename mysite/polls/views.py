@@ -5,7 +5,12 @@ from django.utils import timezone
 from django.views import generic
 
 from .models import Choice, Question
+from rest_framework import routers, serializers, viewsets
+from .serializers import QuestionSerializer
 
+class QuestionViewSet(viewsets.ModelViewSet):
+    queryset = Question.objects.all()
+    serializer_class = QuestionSerializer
 
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
@@ -50,3 +55,6 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+
