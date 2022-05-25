@@ -19,3 +19,16 @@ def create_todos_list():
             'completed': False 
         }
     ]
+
+@pytest.fixture
+def valid_question_object():
+    return {
+        "question_text": "Test Question 2",
+        "pub_date": "2022-05-25T03:12:08Z"
+    }
+
+@pytest.fixture
+def non_valid_question_object():
+    return {
+        "pub_date": "2022-05-25T03:12:08Z"
+    } 
