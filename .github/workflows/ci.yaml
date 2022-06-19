@@ -2,9 +2,9 @@ name: Django CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "*" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main","develop" ]
 
 jobs:
   build:
@@ -24,9 +24,13 @@ jobs:
     - name: Install Dependencies
       run: |
         pwd
-        cd mysite
+        cd mysite/
+        pwd
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
       run: |
+        pwd
+        cd mysite/
+        pwd
         pytest
