@@ -23,9 +23,11 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
       run: |
+        cd mysite/
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     - name: Run Tests
       run: |
+        cd mysite/
         python manage.py makemigrations && python manage.py migrate --settings=mysite.test_settings
         pytest
