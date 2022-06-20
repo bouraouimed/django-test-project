@@ -32,6 +32,7 @@ jobs:
       run: |
         python manage.py makemigrations && python manage.py migrate --settings=mysite.test_settings
         pytest --cache-clear --cov-report term:skip-covered --cov=. tests/ | tee pytest-coverage.txt
+        pwd
         ls -ltr
         cat pytest-coverage.txt
     - name: Comment coverage
