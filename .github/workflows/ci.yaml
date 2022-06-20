@@ -32,9 +32,6 @@ jobs:
     - name: Run Tests
       run: |
         python manage.py makemigrations && python manage.py migrate --settings=mysite.test_settings
-        pytest
-    - name: Django Coverage action
-      uses: dc740/django-coveragepy-github-action@0.9
-      with:
-        django-app: 'mysite'
-        minimum-coverage: '10'
+        pytest --cache-clear --cov=app test/ > pytest-coverage.txt
+    - name: Comment coverage
+      uses: coroo/pytest-coverage-commentator@v1.0.2
