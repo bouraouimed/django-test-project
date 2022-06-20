@@ -32,3 +32,8 @@ jobs:
         pwd
         python manage.py makemigrations && python manage.py migrate --settings=mysite.test_settings
         pytest
+    - name: Django Coverage action
+      uses: actions/python-django-coverage-gitHub-action@0.9
+      with:
+        django-app: 'sample_app'
+        minimum-coverage: '86'
