@@ -38,5 +38,5 @@ jobs:
     - name: Comment coverage
       uses: MishaKav/pytest-coverage-comment@main
       with:
-        pytest-coverage-path: ./pytest-coverage.txt
+        pytest-coverage-path: ./mysite/pytest-coverage.txt
 
