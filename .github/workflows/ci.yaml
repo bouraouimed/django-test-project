@@ -29,13 +29,6 @@ jobs:
     - name: Run Tests
       run: |
         cd mysite/
+        pwd
         python manage.py makemigrations && python manage.py migrate --settings=mysite.test_settings
         pytest
-      - name: Checkout action
-    uses: actions/checkout@v2
-  - name: Django Coverage action
-    uses: actions/python-django-coverage-gitHub-action@0.9
-    with:
-      django-app: 'Test_app'
-      minimum-coverage: '15'
-
