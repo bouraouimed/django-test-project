@@ -35,5 +35,5 @@ jobs:
     - name: Django Coverage action
       uses: dc740/django-coveragepy-github-action@0.9
       with:
-        django-app: 'sample_app'
-        minimum-coverage: '86'
+        django-app: 'mysite'
+        minimum-coverage: '10'
