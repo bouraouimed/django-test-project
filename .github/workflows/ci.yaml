@@ -1,0 +1,42 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "*" ]
+  pull_request:
+    branches: [ "main","develop" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./mysite
+
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.7]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    - name: Run Tests
+      run: |
+        python manage.py makemigrations && python manage.py migrate --settings=mysite.test_settings
+        pytest --cache-clear --cov-report term:skip-covered --cov=. tests/ | tee pytest-coverage.txt
+        pwd
+        ls -ltr
+        cat pytest-coverage.txt
+    - name: Comment coverage
+      uses: MishaKav/pytest-coverage-comment@main
+      with:
+        pytest-coverage-path: ./mysite/pytest-coverage.txt
+
