@@ -14,6 +14,7 @@ class QuestionModelTests(TestCase):
         was_published_recently() returns False for questions whose pub_date
         is in the future.
         """
+        print('test commit6')
         time = timezone.now() + datetime.timedelta(days=30)
         future_question = Question(pub_date=time)
         self.assertIs(future_question.was_published_recently(), False)
@@ -33,7 +34,6 @@ class QuestionModelTests(TestCase):
         was_published_recently() returns True for questions whose pub_date
         is within the last day.
         """
-        print('test6')
         time = timezone.now() - datetime.timedelta(hours=23, minutes=59, seconds=59)
         recent_question = Question(pub_date=time)
         self.assertIs(recent_question.was_published_recently(), True)
